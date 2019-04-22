@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+D:\Faks\Treca godina\Drugi semestar\VELIKI PROJEKAT\PROJEKAT IZ SVEGA\19 april\sa gitlab\wis-master\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3053384476.index
+3970238623.index
+3121829398.index
+1823157982.index
+1006303100.index
