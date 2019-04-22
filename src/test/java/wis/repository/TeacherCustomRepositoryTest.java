@@ -22,13 +22,13 @@ public class TeacherCustomRepositoryTest {
 	@Autowired
 	TeacherRepository teacherRepository;
 	
-	@Test
-	@Transactional
-	@Rollback(true)
-	public void testCustomRepository() {
-		List<Teacher> teachers = teacherRepository.findByFirstName("Stefan");
-		assertEquals(teachers.size(), 1);
-		teachers = teacherRepository.findByLastName("tef");
-		assertEquals(teachers.size(), 1);
-	}
+//	@Test
+//	@Transactional
+//	@Rollback(true)
+//	public void testCustomRepository() {
+//		List<Teacher> teachers = teacherRepository.findByFirstName("Stefan");
+//		assertEquals(teachers.size(), 1);
+//		teachers = teacherRepository.findByLastName("tef");
+//		assertEquals(teachers.size(), 1);
+//	}
 }
