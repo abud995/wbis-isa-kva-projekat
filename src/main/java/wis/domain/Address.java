@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
-// test
 @Entity
 @Where(clause = "deleted = 'false'")
 public class Address {
