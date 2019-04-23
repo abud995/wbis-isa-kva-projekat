@@ -18,7 +18,7 @@ public class CallingTypeService {
     public CallingTypeService() {
     }
 
-    public Iterable<CallingType> getCallingTypees() {
+    public Iterable<CallingType> getCallingTypes() {
         return callingTypeRepository.findAll();
     }
 

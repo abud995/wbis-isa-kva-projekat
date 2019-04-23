@@ -18,7 +18,7 @@ public class ScientificFieldService {
     public ScientificFieldService() {
     }
 
-    public Iterable<ScientificField> getScientificFieldes() {
+    public Iterable<ScientificField> getScientificFields() {
         return scientificFieldRepository.findAll();
     }
 

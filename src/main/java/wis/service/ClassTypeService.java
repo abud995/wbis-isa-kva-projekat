@@ -18,7 +18,7 @@ public class ClassTypeService {
     public ClassTypeService() {
     }
 
-    public Iterable<ClassType> getClassTypees() {
+    public Iterable<ClassType> getClassTypes() {
         return classTypeRepository.findAll();
     }
 

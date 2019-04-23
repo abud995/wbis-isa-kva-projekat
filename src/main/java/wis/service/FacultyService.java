@@ -18,7 +18,7 @@ public class FacultyService {
     public FacultyService() {
     }
 
-    public Iterable<Faculty> getFacultyes() {
+    public Iterable<Faculty> getFaculties() {
         return facultyRepository.findAll();
     }
 

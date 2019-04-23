@@ -22,7 +22,7 @@ public class TeacherService {
     public TeacherService() {
     }
 
-    public Iterable<Teacher> getTeacheres() {
+    public Iterable<Teacher> getTeachers() {
         return teacherRepository.findAll();
     }
 

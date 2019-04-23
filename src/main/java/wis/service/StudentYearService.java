@@ -18,7 +18,7 @@ public class StudentYearService {
     public StudentYearService() {
     }
 
-    public Iterable<StudentYear> getStudentYeares() {
+    public Iterable<StudentYear> getStudentYears() {
         return studentYearRepository.findAll();
     }
 

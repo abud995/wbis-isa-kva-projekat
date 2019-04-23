@@ -18,7 +18,7 @@ public class CountryService {
     public CountryService() {
     }
 
-    public Iterable<Country> getCountryes() {
+    public Iterable<Country> getCountrys() {
         return countryRepository.findAll();
     }
 

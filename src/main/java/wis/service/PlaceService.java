@@ -18,7 +18,7 @@ public class PlaceService {
     public PlaceService() {
     }
 
-    public Iterable<Place> getPlacees() {
+    public Iterable<Place> getPlaces() {
         return placeRepository.findAll();
     }
 

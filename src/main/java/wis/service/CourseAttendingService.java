@@ -18,7 +18,7 @@ public class CourseAttendingService {
     public CourseAttendingService() {
     }
 
-    public Iterable<CourseAttending> getCourseAttendinges() {
+    public Iterable<CourseAttending> getCourseAttendings() {
         return courseAttendingRepository.findAll();
     }
 

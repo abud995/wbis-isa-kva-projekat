@@ -18,7 +18,7 @@ public class CourseTeachingService {
     public CourseTeachingService() {
     }
 
-    public Iterable<CourseTeaching> getCourseTeachinges() {
+    public Iterable<CourseTeaching> getCourseTeachings() {
         return courseTeachingRepository.findAll();
     }
 

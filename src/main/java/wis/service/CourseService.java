@@ -29,7 +29,7 @@ public class CourseService {
     public CourseService() {
     }
 
-    public Iterable<Course> getCoursees() {
+    public Iterable<Course> getCourses() {
         return courseRepository.findAll();
     }
 

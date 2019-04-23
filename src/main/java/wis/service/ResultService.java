@@ -18,7 +18,7 @@ public class ResultService {
     public ResultService() {
     }
 
-    public Iterable<Result> getResultes() {
+    public Iterable<Result> getResults() {
         return resultRepository.findAll();
     }
 

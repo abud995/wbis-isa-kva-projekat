@@ -18,7 +18,7 @@ public class CallingService {
     public CallingService() {
     }
 
-    public Iterable<Calling> getCallinges() {
+    public Iterable<Calling> getCallings() {
         return callingRepository.findAll();
     }
 

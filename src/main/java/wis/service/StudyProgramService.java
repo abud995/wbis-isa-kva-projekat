@@ -18,7 +18,7 @@ public class StudyProgramService {
     public StudyProgramService() {
     }
 
-    public Iterable<StudyProgram> getStudyProgrames() {
+    public Iterable<StudyProgram> getStudyPrograms() {
         return studyProgramRepository.findAll();
     }
 

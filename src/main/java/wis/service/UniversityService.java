@@ -18,7 +18,7 @@ public class UniversityService {
     public UniversityService() {
     }
 
-    public Iterable<University> getUniversityes() {
+    public Iterable<University> getUniversities() {
         return universityRepository.findAll();
     }
 

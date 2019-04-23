@@ -18,7 +18,7 @@ public class CourseRealizationService {
     public CourseRealizationService() {
     }
 
-    public Iterable<CourseRealization> getCourseRealizationes() {
+    public Iterable<CourseRealization> getCourseRealizations() {
         return courseRealizationRepository.findAll();
     }
 

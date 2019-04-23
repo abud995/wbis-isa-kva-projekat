@@ -28,7 +28,7 @@ public class AddressController {
 	
 	@JsonView(HideOptionalProperties.class)
 	@RequestMapping()
-	public ResponseEntity<Iterable<Address>> dobavljanjeAddress() {
+	public ResponseEntity<Iterable<Address>> getAddress() {
 		return new ResponseEntity<Iterable<Address>>(as.getAddresses(), HttpStatus.OK);
 	}
 	
@@ -46,7 +46,7 @@ public class AddressController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Address> dobavljaneJedneAdrese(@PathVariable Long id) {
-		Optional<Address> Address = as.getAddress(id);
+		Optional<Address> Address = as.getAddressById(id);
 		if(Address.isPresent()) {
 			return new ResponseEntity<Address>(Address.get(), HttpStatus.OK);
 		}
