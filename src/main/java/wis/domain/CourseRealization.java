@@ -44,6 +44,24 @@ public class CourseRealization {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Course course;
 	
+	
+	
+	public CourseRealization() {
+
+	}
+
+	public CourseRealization(@NotNull Boolean deleted, int version, LocalDate startDate, LocalDate endDate,
+			Set<CourseTeaching> courseTeachings, Set<CourseAttending> courseAttendings, Course course) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.courseTeachings = courseTeachings;
+		this.courseAttendings = courseAttendings;
+		this.course = course;
+	}
+
 	public Course getCourse() {
 		return course;
 	}

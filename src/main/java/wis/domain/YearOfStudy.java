@@ -41,6 +41,20 @@ public class YearOfStudy {
 	
 	
 	
+	public YearOfStudy() {
+	}
+
+	public YearOfStudy(@NotNull Boolean deleted, int version, int numberOfYear, Set<Course> courses,
+			Set<StudentYear> studentYears, Set<StudyProgram> studyPrograms) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.numberOfYear = numberOfYear;
+		this.courses = courses;
+		this.studentYears = studentYears;
+		this.studyPrograms = studyPrograms;
+	}
+
 	public Set<StudyProgram> getStudyPrograms() {
 		return studyPrograms;
 	}

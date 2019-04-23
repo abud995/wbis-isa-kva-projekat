@@ -41,6 +41,22 @@ public class Place {
 	@OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
 	private Set<Address> addresses;
 
+	
+	
+
+	public Place() {}
+
+
+	public Place(@NotNull Boolean deleted, int version, @Size(max = 50) String name, Country country,
+			Set<Address> addresses) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.name = name;
+		this.country = country;
+		this.addresses = addresses;
+	}
+
 
 	public Long getId() {
 		return id;

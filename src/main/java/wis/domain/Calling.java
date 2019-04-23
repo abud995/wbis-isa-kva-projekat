@@ -43,6 +43,23 @@ public class Calling {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private CallingType callingType;
 
+	
+	
+	public Calling() {
+
+	}
+
+	public Calling(@Size(max = 50) Date dateOfChoice, @Size(max = 50) Date dateOfEnd, @NotNull Boolean deleted,
+			int version, ScientificField scientificField, CallingType callingType) {
+		super();
+		this.dateOfChoice = dateOfChoice;
+		this.dateOfEnd = dateOfEnd;
+		this.deleted = deleted;
+		this.version = version;
+		this.scientificField = scientificField;
+		this.callingType = callingType;
+	}
+
 	public Long getId() {
 		return id;
 	}

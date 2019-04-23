@@ -35,6 +35,22 @@ public class StudentYear {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Student student;
 
+	
+	
+	public StudentYear() {
+
+	}
+
+	public StudentYear(@NotNull Boolean deleted, int version, LocalDate registrationDate, YearOfStudy yearOfStudy,
+			Student student) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.registrationDate = registrationDate;
+		this.yearOfStudy = yearOfStudy;
+		this.student = student;
+	}
+
 	public Long getId() {
 		return id;
 	}

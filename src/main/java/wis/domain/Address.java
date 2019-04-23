@@ -50,6 +50,26 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private Teacher teacher;
     
+    
+    
+	public Address() {
+	}
+
+	public Address(@NotNull Boolean deleted, int version, @Size(max = 50) String streetName,
+			@Size(max = 50) String number, Place place, Faculty faculty, University university, Student student,
+			Teacher teacher) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.streetName = streetName;
+		this.number = number;
+		this.place = place;
+		this.faculty = faculty;
+		this.university = university;
+		this.student = student;
+		this.teacher = teacher;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -53,6 +53,24 @@ public class University {
 	private Set<Teacher> teacher;
 	
 	
+	
+	
+	public University() {
+
+	}
+
+	public University(@Size(max = 50) String name, @Size(max = 50) Date dateOfEstablishment, @NotNull Boolean deleted,
+			int version, Set<Faculty> faculties, Address address, Set<Teacher> teacher) {
+		super();
+		this.name = name;
+		this.dateOfEstablishment = dateOfEstablishment;
+		this.deleted = deleted;
+		this.version = version;
+		Faculties = faculties;
+		this.address = address;
+		this.teacher = teacher;
+	}
+
 	public Long getId() {
 		return id;
 	}

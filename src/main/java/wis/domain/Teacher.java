@@ -61,6 +61,30 @@ public class Teacher {
 	@Version
 	private int version = 0;
 	
+	
+	
+	public Teacher() {
+
+	}
+
+	public Teacher(@Size(max = 50) String firstName, @Size(max = 50) String lastName, @Size(max = 50) String jMBG,
+			@Size(max = 20) String personalIdentificationNumber, @NotNull Boolean deleted,
+			Set<CourseTeaching> courseTeachings, Address address, Set<Faculty> faculties, Set<University> universities,
+			Set<StudyProgram> studyPrograms, int version) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		JMBG = jMBG;
+		this.personalIdentificationNumber = personalIdentificationNumber;
+		this.deleted = deleted;
+		this.courseTeachings = courseTeachings;
+		this.address = address;
+		this.faculties = faculties;
+		this.universities = universities;
+		this.studyPrograms = studyPrograms;
+		this.version = version;
+	}
+
 	public int getVersion() {
 		return version;
 	}

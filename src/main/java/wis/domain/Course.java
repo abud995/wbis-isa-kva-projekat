@@ -55,6 +55,29 @@ public class Course {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Faculty faculty;
 	
+	
+	
+	public Course() {
+
+	}
+
+	public Course(@NotNull Boolean deleted, @Size(max = 50) String title, int ects, boolean obligatory,
+			int numberOfLectures, int numberOfExcercises, int version, Set<CourseRealization> courseRealizations,
+			Set<Result> results, Set<YearOfStudy> yearsOfStudy, Faculty faculty) {
+		super();
+		this.deleted = deleted;
+		this.title = title;
+		this.ects = ects;
+		this.obligatory = obligatory;
+		this.numberOfLectures = numberOfLectures;
+		this.numberOfExcercises = numberOfExcercises;
+		this.version = version;
+		this.courseRealizations = courseRealizations;
+		this.results = results;
+		this.yearsOfStudy = yearsOfStudy;
+		this.faculty = faculty;
+	}
+
 	public Set<YearOfStudy> getYearsOfStudy() {
 		return yearsOfStudy;
 	}

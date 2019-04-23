@@ -40,6 +40,21 @@ public class ClassType {
 	private Set<CourseTeaching> courseTeaching;
 	
 
+	
+	
+	public ClassType() {
+
+	}
+
+	public ClassType(@Size(max = 50) String naziv, @NotNull Boolean deleted, int version,
+			Set<CourseTeaching> courseTeaching) {
+		super();
+		this.naziv = naziv;
+		this.deleted = deleted;
+		this.version = version;
+		this.courseTeaching = courseTeaching;
+	}
+
 	public Long getId() {
 		return id;
 	}

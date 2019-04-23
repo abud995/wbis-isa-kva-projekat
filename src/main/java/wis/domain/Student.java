@@ -54,6 +54,27 @@ public class Student {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 	
+	
+	
+	public Student() {
+
+	}
+
+	public Student(@Size(max = 50) String firstName, @Size(max = 50) String jMBG, @Size(max = 50) String lastName,
+			@Size(max = 10) String cardNumber, @NotNull Boolean deleted, int version,
+			Set<CourseAttending> courseAttendings, Set<StudentYear> studentYears, Address address) {
+		super();
+		this.firstName = firstName;
+		JMBG = jMBG;
+		this.lastName = lastName;
+		this.cardNumber = cardNumber;
+		this.deleted = deleted;
+		this.version = version;
+		this.courseAttendings = courseAttendings;
+		this.studentYears = studentYears;
+		this.address = address;
+	}
+
 	public Set<StudentYear> getStudentYears() {
 		return studentYears;
 	}

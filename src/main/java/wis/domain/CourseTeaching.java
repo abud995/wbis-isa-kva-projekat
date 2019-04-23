@@ -38,6 +38,23 @@ public class CourseTeaching {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ClassType classType;
 	
+	
+	
+	public CourseTeaching() {
+
+	}
+
+	public CourseTeaching(@NotNull Boolean deleted, int version, int numberOfClasses, Teacher teacher,
+			CourseRealization courseRealization, ClassType classType) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.numberOfClasses = numberOfClasses;
+		this.teacher = teacher;
+		this.courseRealization = courseRealization;
+		this.classType = classType;
+	}
+
 	public Teacher getTeacher() {
 		return teacher;
 	}

@@ -11,10 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableAsync(mode = AdviceMode.ASPECTJ)
-@EnableScheduling
-@EnableJpaRepositories("my.package.base.*")
-@ComponentScan(basePackages = { "my.package.base.*" })
-@EntityScan("my.package.base.*")   
+@EnableScheduling 
 public class WISApplication {
 
     public static void main(String[] args) {

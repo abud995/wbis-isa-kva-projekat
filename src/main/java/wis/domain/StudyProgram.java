@@ -38,6 +38,22 @@ public class StudyProgram {
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Teacher> teachers;
 
+	
+	
+	public StudyProgram() {
+
+	}
+
+	public StudyProgram(@NotNull Boolean deleted, int version, @Size(max = 50) String name,
+			Set<YearOfStudy> yearsOfStudy, Set<Teacher> teachers) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.name = name;
+		this.yearsOfStudy = yearsOfStudy;
+		this.teachers = teachers;
+	}
+
 	public Long getId() {
 		return id;
 	}

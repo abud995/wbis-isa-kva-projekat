@@ -39,6 +39,20 @@ public class CallingType {
 	@OneToMany(mappedBy = "callingType", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
 	private Set<Calling> callings;
 
+	
+	
+	public CallingType() {
+
+	}
+
+	public CallingType(@Size(max = 50) String naziv, @NotNull Boolean deleted, int version, Set<Calling> callings) {
+		super();
+		this.naziv = naziv;
+		this.deleted = deleted;
+		this.version = version;
+		this.callings = callings;
+	}
+
 	public Long getId() {
 		return id;
 	}

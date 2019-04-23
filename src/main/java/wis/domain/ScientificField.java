@@ -39,6 +39,20 @@ public class ScientificField {
 	private Set<Calling> callings;
 	
 	
+	
+	
+	public ScientificField() {
+
+	}
+
+	public ScientificField(@Size(max = 50) String name, @NotNull Boolean deleted, int version, Set<Calling> callings) {
+		super();
+		this.name = name;
+		this.deleted = deleted;
+		this.version = version;
+		this.callings = callings;
+	}
+
 	public Long getId() {
 		return id;
 	}

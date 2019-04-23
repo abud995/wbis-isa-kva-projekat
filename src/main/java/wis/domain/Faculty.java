@@ -51,6 +51,24 @@ public class Faculty {
 	@OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Course> courses;
 	
+	
+	
+	public Faculty() {
+
+	}
+
+	public Faculty(@Size(max = 50) String name, @NotNull Boolean deleted, int version, University university,
+			Address address, Set<Teacher> teacher, Set<Course> courses) {
+		super();
+		this.name = name;
+		this.deleted = deleted;
+		this.version = version;
+		this.university = university;
+		this.address = address;
+		this.teacher = teacher;
+		this.courses = courses;
+	}
+
 	public Long getId() {
 		return id;
 	}

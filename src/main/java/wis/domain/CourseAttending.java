@@ -35,6 +35,22 @@ public class CourseAttending {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private CourseRealization courseRealization;
 	
+	
+	
+	public CourseAttending() {
+
+	}
+
+	public CourseAttending(@NotNull Boolean deleted, int version, int finalGrade, Student student,
+			CourseRealization courseRealization) {
+		super();
+		this.deleted = deleted;
+		this.version = version;
+		this.finalGrade = finalGrade;
+		this.student = student;
+		this.courseRealization = courseRealization;
+	}
+
 	public CourseRealization getCourseRealization() {
 		return courseRealization;
 	}

@@ -35,6 +35,19 @@ public class Result {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Course course;
 	
+	
+	
+	public Result() {
+	}
+
+	public Result(@Size(max = 300) String opis, @NotNull Boolean deleted, int version, Course course) {
+		super();
+		this.opis = opis;
+		this.deleted = deleted;
+		this.version = version;
+		this.course = course;
+	}
+
 	public Long getId() {
 		return id;
 	}
