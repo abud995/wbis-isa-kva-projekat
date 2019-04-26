@@ -3,8 +3,8 @@ package wis.domain;
 import java.sql.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,42 +15,43 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+//Zvanje
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class Calling {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
 	@Size(max = 50)
 	private Date dateOfChoice;
-	
+
 	@Size(max = 50)
 	private Date dateOfEnd;
-	
-	
+
 	@NotNull
 	private Boolean deleted = false;
-	
+
 	@Version
 	private int version = 0;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private ScientificField scientificField;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private CallingType callingType;
 
-	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Teacher teacher;
+
 	public Calling() {
 
 	}
 
 	public Calling(@Size(max = 50) Date dateOfChoice, @Size(max = 50) Date dateOfEnd, @NotNull Boolean deleted,
-			int version, ScientificField scientificField, CallingType callingType) {
+			int version, ScientificField scientificField, CallingType callingType, Teacher teacher) {
 		super();
 		this.dateOfChoice = dateOfChoice;
 		this.dateOfEnd = dateOfEnd;
@@ -58,6 +59,7 @@ public class Calling {
 		this.version = version;
 		this.scientificField = scientificField;
 		this.callingType = callingType;
+		this.teacher = teacher;
 	}
 
 	public Long getId() {
@@ -99,7 +101,31 @@ public class Calling {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
+	public ScientificField getScientificField() {
+		return scientificField;
+	}
+
+	public void setScientificField(ScientificField scientificField) {
+		this.scientificField = scientificField;
+	}
+
+	public CallingType getCallingType() {
+		return callingType;
+	}
+
+	public void setCallingType(CallingType callingType) {
+		this.callingType = callingType;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -119,5 +145,5 @@ public class Calling {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

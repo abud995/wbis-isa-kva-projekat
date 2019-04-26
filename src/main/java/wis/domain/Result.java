@@ -2,8 +2,9 @@ package wis.domain;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+//Ishod
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class Result {
@@ -21,22 +24,20 @@ public class Result {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false)
 	@Size(max = 300)
 	private String opis;
 
-	
 	@NotNull
 	private Boolean deleted = false;
-	
+
 	@Version
 	private int version = 0;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Course course;
-	
-	
-	
+
 	public Result() {
 	}
 
@@ -99,5 +100,5 @@ public class Result {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

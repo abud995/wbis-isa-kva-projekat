@@ -1,6 +1,5 @@
 package wis.domain;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,12 +9,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import wis.utils.View.ShowCourseTeaching;
+
+//RealizacijaPredmeta
 
 @Entity
 @Where(clause = "deleted = 'false'")
@@ -31,32 +37,28 @@ public class CourseRealization {
 	@Version
 	private int version = 0;
 
-	private LocalDate startDate;
-	
-	private LocalDate endDate;
-	
-	@OneToMany(mappedBy = "courseRealization", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonView(ShowCourseTeaching.class)
+	@OneToMany(mappedBy = "courseRealization", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE })
 	private Set<CourseTeaching> courseTeachings;
 
-	@OneToMany(mappedBy = "courseRealization", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToMany(mappedBy = "courseRealization", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE })
 	private Set<CourseAttending> courseAttendings;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "course_id", referencedColumnName = "id")
 	private Course course;
-	
-	
-	
+
 	public CourseRealization() {
 
 	}
 
-	public CourseRealization(@NotNull Boolean deleted, int version, LocalDate startDate, LocalDate endDate,
-			Set<CourseTeaching> courseTeachings, Set<CourseAttending> courseAttendings, Course course) {
+	public CourseRealization(@NotNull Boolean deleted, int version, Set<CourseTeaching> courseTeachings,
+			Set<CourseAttending> courseAttendings, Course course) {
 		super();
 		this.deleted = deleted;
 		this.version = version;
-		this.startDate = startDate;
-		this.endDate = endDate;
 		this.courseTeachings = courseTeachings;
 		this.courseAttendings = courseAttendings;
 		this.course = course;
@@ -102,22 +104,6 @@ public class CourseRealization {
 		this.version = version;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -132,7 +118,7 @@ public class CourseRealization {
 		}
 		return Objects.equals(id, object.id);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(id);

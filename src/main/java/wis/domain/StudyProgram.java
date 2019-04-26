@@ -3,17 +3,22 @@ package wis.domain;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
+
+//StudijskiProgram
 
 @Entity
 @Where(clause = "deleted = 'false'")
@@ -28,30 +33,33 @@ public class StudyProgram {
 
 	@Version
 	private int version = 0;
-	
+
+	@Column(nullable = false)
 	@Size(max = 50)
 	private String name;
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<YearOfStudy> yearsOfStudy;
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Teacher> teachers;
 
-	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Faculty faculty;
+
 	public StudyProgram() {
 
 	}
 
 	public StudyProgram(@NotNull Boolean deleted, int version, @Size(max = 50) String name,
-			Set<YearOfStudy> yearsOfStudy, Set<Teacher> teachers) {
+			Set<YearOfStudy> yearsOfStudy, Set<Teacher> teachers, Faculty faculty) {
 		super();
 		this.deleted = deleted;
 		this.version = version;
 		this.name = name;
 		this.yearsOfStudy = yearsOfStudy;
 		this.teachers = teachers;
+		this.faculty = faculty;
 	}
 
 	public Long getId() {
@@ -101,7 +109,15 @@ public class StudyProgram {
 	public void setTeachers(Set<Teacher> teachers) {
 		this.teachers = teachers;
 	}
-	
+
+	public Faculty getFaculty() {
+		return faculty;
+	}
+
+	public void setFaculty(Faculty faculty) {
+		this.faculty = faculty;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -121,5 +137,5 @@ public class StudyProgram {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

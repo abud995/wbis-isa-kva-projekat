@@ -9,14 +9,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import wis.utils.View.ShowResult;
+
+//Predmet
 
 @Entity
 @Where(clause = "deleted = 'false'")
@@ -31,39 +37,45 @@ public class Course {
 
 	@Size(max = 50)
 	private String title;
-	
+
 	private int ects;
-	
+
 	private boolean obligatory;
-	
+
 	private int numberOfLectures;
 
 	private int numberOfExcercises;
-	
+
+	private int otherFormsOfActivities;
+
+	private int researchPaper;
+
+	private int otherClasses;
+
 	@Version
 	private int version = 0;
-	
+
+	@OneToOne(mappedBy = "course")
+	private CourseRealization courseRealizations;
+
+	@JsonView(ShowResult.class)
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Set<CourseRealization> courseRealizations;
-	
-	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
-	private Set<Result> results;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	private Set<YearOfStudy> yearsOfStudy;
-	
+	private Set<Result> sylabus;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private YearOfStudy yearOfStudy;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Faculty faculty;
-	
-	
-	
+
 	public Course() {
 
 	}
 
 	public Course(@NotNull Boolean deleted, @Size(max = 50) String title, int ects, boolean obligatory,
-			int numberOfLectures, int numberOfExcercises, int version, Set<CourseRealization> courseRealizations,
-			Set<Result> results, Set<YearOfStudy> yearsOfStudy, Faculty faculty) {
+			int numberOfLectures, int numberOfExcercises, int otherFormsOfActivities, int researchPaper,
+			int otherClasses, int version, CourseRealization courseRealizations, Set<Result> sylabus,
+			YearOfStudy yearOfStudy, Faculty faculty) {
 		super();
 		this.deleted = deleted;
 		this.title = title;
@@ -71,35 +83,14 @@ public class Course {
 		this.obligatory = obligatory;
 		this.numberOfLectures = numberOfLectures;
 		this.numberOfExcercises = numberOfExcercises;
+		this.otherFormsOfActivities = otherFormsOfActivities;
+		this.researchPaper = researchPaper;
+		this.otherClasses = otherClasses;
 		this.version = version;
 		this.courseRealizations = courseRealizations;
-		this.results = results;
-		this.yearsOfStudy = yearsOfStudy;
+		this.sylabus = sylabus;
+		this.yearOfStudy = yearOfStudy;
 		this.faculty = faculty;
-	}
-
-	public Set<YearOfStudy> getYearsOfStudy() {
-		return yearsOfStudy;
-	}
-
-	public void setYearsOfStudy(Set<YearOfStudy> yearsOfStudy) {
-		this.yearsOfStudy = yearsOfStudy;
-	}
-
-	public Set<CourseRealization> getCourseRealizations() {
-		return courseRealizations;
-	}
-
-	public void setCourseRealizations(Set<CourseRealization> courseRealizations) {
-		this.courseRealizations = courseRealizations;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {
@@ -157,15 +148,61 @@ public class Course {
 	public void setNumberOfExcercises(int numberOfExcercises) {
 		this.numberOfExcercises = numberOfExcercises;
 	}
-	
-	
 
-	public Set<Result> getResults() {
-		return results;
+	public int getOtherFormsOfActivities() {
+		return otherFormsOfActivities;
 	}
 
-	public void setResults(Set<Result> results) {
-		this.results = results;
+	public void setOtherFormsOfActivities(int otherFormsOfActivities) {
+		this.otherFormsOfActivities = otherFormsOfActivities;
+	}
+
+	public int getResearchPaper() {
+		return researchPaper;
+	}
+
+	public void setResearchPaper(int researchPaper) {
+		this.researchPaper = researchPaper;
+	}
+
+	public int getOtherClasses() {
+		return otherClasses;
+	}
+
+	public void setOtherClasses(int otherClasses) {
+		this.otherClasses = otherClasses;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public CourseRealization getCourseRealizations() {
+		return courseRealizations;
+	}
+
+	public void setCourseRealizations(CourseRealization courseRealizations) {
+		this.courseRealizations = courseRealizations;
+	}
+
+	public Set<Result> getSylabus() {
+		return sylabus;
+	}
+
+	public void setSylabus(Set<Result> sylabus) {
+		this.sylabus = sylabus;
+	}
+
+	public YearOfStudy getYearOfStudy() {
+		return yearOfStudy;
+	}
+
+	public void setYearOfStudy(YearOfStudy yearOfStudy) {
+		this.yearOfStudy = yearOfStudy;
 	}
 
 	public Faculty getFaculty() {

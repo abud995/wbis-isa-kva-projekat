@@ -8,6 +8,6 @@ import wis.domain.YearOfStudy;
 @Repository
 public interface YearOfStudyRepository extends JpaRepository<YearOfStudy, Long>{
 
-	YearOfStudy findFirstByNumberOfYear(int numberOfYear);
+	YearOfStudy findFirstByYear(int numberOfYear);
 	
 }

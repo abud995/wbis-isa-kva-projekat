@@ -30,7 +30,7 @@ public class StudentRepositoryTest {
 		Student student = new Student();
 		student.setFirstName("Pera");
 		student.setLastName("Peric");
-		student.setCardNumber("123321");
+		//student.setCardNumber("123321");
 		
 		// insert the student
 		student = studentRepository.save(student);
@@ -63,7 +63,7 @@ public class StudentRepositoryTest {
 		Student student = new Student();
 		student.setFirstName("Pera");
 		student.setLastName("Peric");
-		student.setCardNumber("123321");
+		//student.setCardNumber("123321");
 		
 		// insert the student
 		student = studentRepository.save(student);

@@ -1,18 +1,22 @@
 package wis.domain;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
+
+//StudentNaGodini
 
 @Entity
 @Where(clause = "deleted = 'false'")
@@ -27,26 +31,30 @@ public class StudentYear {
 	@Version
 	private int version = 0;
 
-	private LocalDate registrationDate;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(nullable = false)
+	private Date registrationDate;
+
+	@Column(nullable = false)
+	@Size(max = 10)
+	private String numIndex;
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private YearOfStudy yearOfStudy;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Student student;
 
-	
-	
 	public StudentYear() {
 
 	}
 
-	public StudentYear(@NotNull Boolean deleted, int version, LocalDate registrationDate, YearOfStudy yearOfStudy,
-			Student student) {
+	public StudentYear(@NotNull Boolean deleted, int version, Date registrationDate, @Size(max = 10) String numIndex,
+			YearOfStudy yearOfStudy, Student student) {
 		super();
 		this.deleted = deleted;
 		this.version = version;
 		this.registrationDate = registrationDate;
+		this.numIndex = numIndex;
 		this.yearOfStudy = yearOfStudy;
 		this.student = student;
 	}
@@ -75,12 +83,20 @@ public class StudentYear {
 		this.version = version;
 	}
 
-	public LocalDate getRegistrationDate() {
+	public Date getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(LocalDate registrationDate) {
+	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+
+	public String getNumIndex() {
+		return numIndex;
+	}
+
+	public void setNumIndex(String numIndex) {
+		this.numIndex = numIndex;
 	}
 
 	public YearOfStudy getYearOfStudy() {
@@ -98,9 +114,7 @@ public class StudentYear {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -115,7 +129,7 @@ public class StudentYear {
 		}
 		return Objects.equals(id, object.id);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(id);

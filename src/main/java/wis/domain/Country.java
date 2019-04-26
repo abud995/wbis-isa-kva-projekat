@@ -16,6 +16,12 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import wis.utils.View.ShowPlace;
+
+//Drzava
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class Country {
@@ -23,21 +29,20 @@ public class Country {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Size(max = 50)
 	private String name;
-	
+
 	@NotNull
 	private Boolean deleted = false;
-	
+
 	@Version
 	private int version = 0;
-	
-	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
+
+	@JsonView(ShowPlace.class)
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Place> places;
 
-	
-	
 	public Country() {
 
 	}
@@ -57,8 +62,6 @@ public class Country {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public String getName() {
 		return name;
@@ -92,8 +95,6 @@ public class Country {
 		this.places = places;
 	}
 
-	
-	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -113,7 +114,5 @@ public class Country {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
-	
-	
+
 }

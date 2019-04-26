@@ -10,7 +10,7 @@ public class View {
 	public interface ShowCourse {};
 	public interface ShowCourseAttending {};
 	public interface ShowRealization {};
-	public interface ShowTeaching {};
+	public interface ShowCourseTeaching {};
 	public interface ShowFaculty {};
 	public interface ShowPlace {};
 	public interface ShowResult {};

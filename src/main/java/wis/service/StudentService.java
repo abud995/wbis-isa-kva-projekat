@@ -52,16 +52,16 @@ public class StudentService {
     }
 	
 	public void enrolleInFirstYear(Student student) {
-		YearOfStudy yearOfStudy = yearOfStudyRepository.findFirstByNumberOfYear(1);
+		YearOfStudy yearOfStudy = yearOfStudyRepository.findFirstByYear(1);
 		StudentYear studentYear = new StudentYear();
 		studentYear.setYearOfStudy(yearOfStudy);
 		student.getStudentYears().add(studentYear);
 		studentRepository.save(student);
 	}
 	
-	public Student findByCardNumber(String cardNumber) {
-		return studentRepository.findFirstByCardNumber(cardNumber);
-	}
+	//public Student findByCardNumber(String cardNumber) {
+		//return studentRepository.findFirstByCardNumber(cardNumber);
+	//}
 
 	//public Student findByJMBG (String jMBG) {
 		

@@ -1,24 +1,34 @@
 package wis.domain;
 
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import wis.utils.View.ShowFaculty;
+import wis.utils.View.ShowStudent;
+import wis.utils.View.ShowTeacher;
+import wis.utils.View.ShowUniversity;
+
+//Adresa
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class Address {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -31,43 +41,45 @@ public class Address {
 
 	@Size(max = 50)
 	private String streetName;
-	
+
 	@Size(max = 50)
 	private String number;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Place place;
-	
-    @OneToOne(mappedBy = "address")
-    private Faculty faculty;
-    
-    @OneToOne(mappedBy = "address")
-    private University university;
 
-    @OneToOne(mappedBy = "address")
-    private Student student;
-    
-    @OneToOne(mappedBy = "address")
-    private Teacher teacher;
-    
-    
-    
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Place place;
+
+	@JsonView(ShowFaculty.class)
+	@OneToMany(mappedBy = "address")
+	private Set<Faculty> faculties;
+
+	@JsonView(ShowUniversity.class)
+	@OneToMany(mappedBy = "address")
+	private Set<University> universities;
+
+	@JsonView(ShowStudent.class)
+	@OneToMany(mappedBy = "address")
+	private Set<Student> students;
+
+	@JsonView(ShowTeacher.class)
+	@OneToMany(mappedBy = "address")
+	private Set<Teacher> teachers;
+
 	public Address() {
 	}
 
 	public Address(@NotNull Boolean deleted, int version, @Size(max = 50) String streetName,
-			@Size(max = 50) String number, Place place, Faculty faculty, University university, Student student,
-			Teacher teacher) {
+			@Size(max = 50) String number, Place place, Set<Faculty> faculties, Set<University> universities,
+			Set<Student> students, Set<Teacher> teachers) {
 		super();
 		this.deleted = deleted;
 		this.version = version;
 		this.streetName = streetName;
 		this.number = number;
 		this.place = place;
-		this.faculty = faculty;
-		this.university = university;
-		this.student = student;
-		this.teacher = teacher;
+		this.faculties = faculties;
+		this.universities = universities;
+		this.students = students;
+		this.teachers = teachers;
 	}
 
 	public Long getId() {
@@ -76,24 +88,6 @@ public class Address {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	
-	
-	public University getUniversity() {
-		return university;
-	}
-
-	public void setUniversity(University university) {
-		this.university = university;
-	}
-
-	public Faculty getFaculty() {
-		return faculty;
-	}
-
-	public void setFaculty(Faculty faculty) {
-		this.faculty = faculty;
 	}
 
 	public Boolean getDeleted() {
@@ -111,8 +105,6 @@ public class Address {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-
-	
 
 	public String getStreetName() {
 		return streetName;
@@ -137,23 +129,37 @@ public class Address {
 	public void setPlace(Place place) {
 		this.place = place;
 	}
-	
-	
-	
-	public Student getStudent() {
-		return student;
+
+	public Set<Faculty> getFaculties() {
+		return faculties;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setFaculties(Set<Faculty> faculties) {
+		this.faculties = faculties;
 	}
 
-	public Teacher getTeacher() {
-		return teacher;
+	public Set<University> getUniversities() {
+		return universities;
 	}
 
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
+	public void setUniversities(Set<University> universities) {
+		this.universities = universities;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
+
+	public Set<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(Set<Teacher> teachers) {
+		this.teachers = teachers;
 	}
 
 	@Override
@@ -175,6 +181,5 @@ public class Address {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
-	
+
 }

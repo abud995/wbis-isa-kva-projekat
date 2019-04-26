@@ -16,40 +16,36 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+//TipNastave
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class ClassType {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
 	@Size(max = 50)
-	private String naziv;
-	
-	
+	private String name;
+
 	@NotNull
 	private Boolean deleted = false;
-	
+
 	@Version
 	private int version = 0;
-	
-	@OneToMany(mappedBy = "classType", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
-	private Set<CourseTeaching> courseTeaching;
-	
 
-	
-	
+	@OneToMany(mappedBy = "classType", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<CourseTeaching> courseTeaching;
+
 	public ClassType() {
 
 	}
 
-	public ClassType(@Size(max = 50) String naziv, @NotNull Boolean deleted, int version,
+	public ClassType(@Size(max = 50) String name, @NotNull Boolean deleted, int version,
 			Set<CourseTeaching> courseTeaching) {
 		super();
-		this.naziv = naziv;
+		this.name = name;
 		this.deleted = deleted;
 		this.version = version;
 		this.courseTeaching = courseTeaching;
@@ -63,12 +59,12 @@ public class ClassType {
 		this.id = id;
 	}
 
-	public String getNaziv() {
-		return naziv;
+	public String getName() {
+		return name;
 	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Boolean getDeleted() {
@@ -94,7 +90,7 @@ public class ClassType {
 	public void setCourseTeaching(Set<CourseTeaching> courseTeaching) {
 		this.courseTeaching = courseTeaching;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -114,5 +110,5 @@ public class ClassType {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package wis.domain;
 
-
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+//TipZvanja
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class CallingType {
@@ -25,29 +26,25 @@ public class CallingType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
 	@Size(max = 50)
-	private String naziv;
-	
-	
+	private String name;
+
 	@NotNull
 	private Boolean deleted = false;
-	
+
 	@Version
 	private int version = 0;
-	
-	@OneToMany(mappedBy = "callingType", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
+
+	@OneToMany(mappedBy = "callingType", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Calling> callings;
 
-	
-	
 	public CallingType() {
 
 	}
 
-	public CallingType(@Size(max = 50) String naziv, @NotNull Boolean deleted, int version, Set<Calling> callings) {
+	public CallingType(@Size(max = 50) String name, @NotNull Boolean deleted, int version, Set<Calling> callings) {
 		super();
-		this.naziv = naziv;
+		this.name = name;
 		this.deleted = deleted;
 		this.version = version;
 		this.callings = callings;
@@ -61,12 +58,12 @@ public class CallingType {
 		this.id = id;
 	}
 
-	public String getNaziv() {
-		return naziv;
+	public String getName() {
+		return name;
 	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Boolean getDeleted() {
@@ -84,7 +81,15 @@ public class CallingType {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
+	public Set<Calling> getCallings() {
+		return callings;
+	}
+
+	public void setCallings(Set<Calling> callings) {
+		this.callings = callings;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -104,5 +109,5 @@ public class CallingType {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

@@ -2,8 +2,9 @@ package wis.domain;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
+
+//NastavnikNaRealizaciji
 
 @Entity
 @Where(clause = "deleted = 'false'")
@@ -26,20 +29,19 @@ public class CourseTeaching {
 
 	@Version
 	private int version = 0;
-	
+
+	@Column(nullable = false)
 	private int numberOfClasses;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Teacher teacher;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private CourseRealization courseRealization;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private ClassType classType;
-	
-	
-	
+
 	public CourseTeaching() {
 
 	}
@@ -117,10 +119,10 @@ public class CourseTeaching {
 		}
 		return Objects.equals(id, object.id);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

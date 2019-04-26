@@ -1,11 +1,10 @@
 package wis.domain;
 
-
-
 import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +17,12 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import wis.utils.View.ShowCalling;
+
+//NaucnaOblast
+
 @Entity
 @Where(clause = "deleted = 'false'")
 public class ScientificField {
@@ -25,22 +30,22 @@ public class ScientificField {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false)
 	@Size(max = 50)
 	private String name;
-	
+
 	@NotNull
 	private Boolean deleted = false;
-	
+
 	@Version
 	private int version = 0;
 
-	@OneToMany(mappedBy = "scientificField", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })	
+	@JsonView(ShowCalling.class)
+	@OneToMany(mappedBy = "scientificField", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE })
 	private Set<Calling> callings;
-	
-	
-	
-	
+
 	public ScientificField() {
 
 	}
@@ -84,7 +89,7 @@ public class ScientificField {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -104,5 +109,5 @@ public class ScientificField {
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}
-	
+
 }

@@ -4,20 +4,27 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import wis.utils.View.ShowCalling;
+import wis.utils.View.ShowCourseTeaching;
+
+//Nastavnik
 
 @Entity
 @Where(clause = "deleted = 'false'")
@@ -27,69 +34,68 @@ public class Teacher {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	@Size(max = 50)
 	private String firstName;
 
+	@Column(nullable = false)
 	@Size(max = 50)
 	private String lastName;
-	
+
+	@Column(nullable = false)
 	@Size(max = 50)
 	private String JMBG;
 
-	@Size(max = 20)
-	private String personalIdentificationNumber;
+	@Column(nullable = false)
+	@Size(max = 50)
+	private String biography;
 
 	@NotNull
 	private Boolean deleted = false;
-	
+
+	@JsonView(ShowCourseTeaching.class)
 	@OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<CourseTeaching> courseTeachings;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-	
-	@ManyToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Address address;
+
+	@ManyToMany(mappedBy = "teachers", fetch = FetchType.LAZY)
 	private Set<Faculty> faculties;
-	
-	@ManyToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
+
+	@ManyToMany(mappedBy = "teachers", fetch = FetchType.LAZY)
 	private Set<University> universities;
-	
+
 	@ManyToMany(mappedBy = "teachers", fetch = FetchType.LAZY)
 	private Set<StudyProgram> studyPrograms;
 
+	@JsonView(ShowCalling.class)
+	@OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<Calling> callings;
+
 	@Version
 	private int version = 0;
-	
-	
-	
+
 	public Teacher() {
 
 	}
 
 	public Teacher(@Size(max = 50) String firstName, @Size(max = 50) String lastName, @Size(max = 50) String jMBG,
-			@Size(max = 20) String personalIdentificationNumber, @NotNull Boolean deleted,
-			Set<CourseTeaching> courseTeachings, Address address, Set<Faculty> faculties, Set<University> universities,
-			Set<StudyProgram> studyPrograms, int version) {
+			@Size(max = 50) String biography, @NotNull Boolean deleted, Set<CourseTeaching> courseTeachings,
+			Address address, Set<Faculty> faculties, Set<University> universities, Set<StudyProgram> studyPrograms,
+			Set<Calling> callings, int version) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		JMBG = jMBG;
-		this.personalIdentificationNumber = personalIdentificationNumber;
+		this.biography = biography;
 		this.deleted = deleted;
 		this.courseTeachings = courseTeachings;
 		this.address = address;
 		this.faculties = faculties;
 		this.universities = universities;
 		this.studyPrograms = studyPrograms;
-		this.version = version;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
+		this.callings = callings;
 		this.version = version;
 	}
 
@@ -117,12 +123,20 @@ public class Teacher {
 		this.lastName = lastName;
 	}
 
-	public String getPersonalIdentificationNumber() {
-		return personalIdentificationNumber;
+	public String getJMBG() {
+		return JMBG;
 	}
 
-	public void setPersonalIdentificationNumber(String personalIdentificationNumber) {
-		this.personalIdentificationNumber = personalIdentificationNumber;
+	public void setJMBG(String jMBG) {
+		JMBG = jMBG;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
 	}
 
 	public Boolean getDeleted() {
@@ -133,8 +147,6 @@ public class Teacher {
 		this.deleted = deleted;
 	}
 
-	
-	
 	public Set<CourseTeaching> getCourseTeachings() {
 		return courseTeachings;
 	}
@@ -151,8 +163,6 @@ public class Teacher {
 		this.address = address;
 	}
 
-	
-	
 	public Set<Faculty> getFaculties() {
 		return faculties;
 	}
@@ -168,16 +178,6 @@ public class Teacher {
 	public void setUniversities(Set<University> universities) {
 		this.universities = universities;
 	}
-	
-	
-
-	public String getJMBG() {
-		return JMBG;
-	}
-
-	public void setJMBG(String jMBG) {
-		JMBG = jMBG;
-	}
 
 	public Set<StudyProgram> getStudyPrograms() {
 		return studyPrograms;
@@ -185,6 +185,22 @@ public class Teacher {
 
 	public void setStudyPrograms(Set<StudyProgram> studyPrograms) {
 		this.studyPrograms = studyPrograms;
+	}
+
+	public Set<Calling> getCallings() {
+		return callings;
+	}
+
+	public void setCallings(Set<Calling> callings) {
+		this.callings = callings;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override
