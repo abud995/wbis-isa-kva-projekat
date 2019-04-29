@@ -45,7 +45,7 @@ public class AddressController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Address> dobavljaneJedneAdrese(@PathVariable Long id) {
+	public ResponseEntity<Address> getAddressById(@PathVariable Long id) {
 		Optional<Address> Address = as.getAddressById(id);
 		if(Address.isPresent()) {
 			return new ResponseEntity<Address>(Address.get(), HttpStatus.OK);

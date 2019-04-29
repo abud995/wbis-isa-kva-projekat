@@ -10,9 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,18 +35,6 @@ public class Teacher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(nullable = false)
-	@Size(max = 50)
-	private String firstName;
-
-	@Column(nullable = false)
-	@Size(max = 50)
-	private String lastName;
-
-	@Column(nullable = false)
-	@Size(max = 50)
-	private String JMBG;
 
 	@Column(nullable = false)
 	@Size(max = 50)
@@ -76,18 +66,18 @@ public class Teacher {
 	@Version
 	private int version = 0;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id", referencedColumnName = "id")
+	private AccountData accountData;
+
 	public Teacher() {
 
 	}
 
-	public Teacher(@Size(max = 50) String firstName, @Size(max = 50) String lastName, @Size(max = 50) String jMBG,
-			@Size(max = 50) String biography, @NotNull Boolean deleted, Set<CourseTeaching> courseTeachings,
+	public Teacher(@Size(max = 50) String biography, @NotNull Boolean deleted, Set<CourseTeaching> courseTeachings,
 			Address address, Set<Faculty> faculties, Set<University> universities, Set<StudyProgram> studyPrograms,
-			Set<Calling> callings, int version) {
+			Set<Calling> callings, int version, AccountData accountData) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		JMBG = jMBG;
 		this.biography = biography;
 		this.deleted = deleted;
 		this.courseTeachings = courseTeachings;
@@ -97,6 +87,7 @@ public class Teacher {
 		this.studyPrograms = studyPrograms;
 		this.callings = callings;
 		this.version = version;
+		this.accountData = accountData;
 	}
 
 	public Long getId() {
@@ -105,30 +96,6 @@ public class Teacher {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getJMBG() {
-		return JMBG;
-	}
-
-	public void setJMBG(String jMBG) {
-		JMBG = jMBG;
 	}
 
 	public String getBiography() {
@@ -201,6 +168,14 @@ public class Teacher {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public AccountData getAccountData() {
+		return accountData;
+	}
+
+	public void setAccountData(AccountData accountData) {
+		this.accountData = accountData;
 	}
 
 	@Override

@@ -4,17 +4,17 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Where;
 
@@ -33,18 +33,6 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	@Size(max = 50)
-	private String firstName;
-
-	@Column(nullable = false)
-	@Size(max = 50)
-	private String JMBG;
-
-	@Column(nullable = false)
-	@Size(max = 50)
-	private String lastName;
-
 	@NotNull
 	private Boolean deleted = false;
 
@@ -62,22 +50,23 @@ public class Student {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id", referencedColumnName = "id")
+	private AccountData accountData;
+
 	public Student() {
 
 	}
 
-	public Student(@Size(max = 50) String firstName, @Size(max = 50) String jMBG, @Size(max = 50) String lastName,
-			@NotNull Boolean deleted, int version, Set<CourseAttending> courseAttendings, Set<StudentYear> studentYears,
-			Address address) {
+	public Student(@NotNull Boolean deleted, int version, Set<CourseAttending> courseAttendings,
+			Set<StudentYear> studentYears, Address address, AccountData accountData) {
 		super();
-		this.firstName = firstName;
-		JMBG = jMBG;
-		this.lastName = lastName;
 		this.deleted = deleted;
 		this.version = version;
 		this.courseAttendings = courseAttendings;
 		this.studentYears = studentYears;
 		this.address = address;
+		this.accountData = accountData;
 	}
 
 	public Long getId() {
@@ -86,30 +75,6 @@ public class Student {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getJMBG() {
-		return JMBG;
-	}
-
-	public void setJMBG(String jMBG) {
-		JMBG = jMBG;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public Boolean getDeleted() {
@@ -150,6 +115,14 @@ public class Student {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public AccountData getAccountData() {
+		return accountData;
+	}
+
+	public void setAccountData(AccountData accountData) {
+		this.accountData = accountData;
 	}
 
 	@Override

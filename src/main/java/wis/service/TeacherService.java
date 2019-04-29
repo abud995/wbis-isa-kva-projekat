@@ -53,11 +53,11 @@ public class TeacherService {
 		//return teacherRepository.findByJMBG(jMBG);
 		
 	//}
-	
-	public List<Teacher> findByFirstName (String firstName) {
-		
-		return teacherRepository.findByFirstNameLike(firstName);
-		
-	}
+//	
+//	public List<Teacher> findByFirstName (String firstName) {
+//		
+//		return teacherRepository.findByFirstNameLike(firstName);
+//		
+//	}
 	
 }

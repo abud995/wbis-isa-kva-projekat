@@ -69,16 +69,16 @@ public class StudentService {
 		
 	//}
 	
-	public List<Student> findByFirstName (String firstName) {
-		
-		return studentRepository.findByFirstNameLike(firstName);
-		
-	}
-	
-	public List<Student> findByFinalGrade (int grade){
-		
-		return studentRepository.findByCourseAttendingsFinalGradeLike(grade);
-		
-	}
+//	public List<Student> findByFirstName (String firstName) {
+//		
+//		return studentRepository.findByFirstNameLike(firstName);
+//		
+//	}
+//	
+//	public List<Student> findByFinalGrade (int grade){
+//		
+//		return studentRepository.findByCourseAttendingsFinalGradeLike(grade);
+//		
+//	}
 	
 }

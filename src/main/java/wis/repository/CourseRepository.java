@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
+//import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import wis.domain.Course;
-import wis.domain.Teacher;
+//import wis.domain.Teacher;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long>{

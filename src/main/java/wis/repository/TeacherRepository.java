@@ -11,6 +11,6 @@ import wis.domain.Teacher;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long>, TeacherRepositoryCustom {
 
-	List<Teacher> findByFirstNameLike(String firstName);
+	//List<Teacher> findByFirstNameLike(String firstName);
 	//Teacher findByJMBG (String jMBG);
 }
